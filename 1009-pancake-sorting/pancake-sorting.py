@@ -4,10 +4,11 @@ class Solution:
         nums = []
         while l != 0:
             ind = arr.index(max(arr[0: l]))
-            self.reversefunction(arr, ind)
-            nums.append(ind+1)
-            self.reversefunction(arr, l-1)
-            nums.append(l)
+            if ind != l-1 :
+                self.reversefunction(arr, ind)
+                nums.append(ind+1)
+                self.reversefunction(arr, l-1)
+                nums.append(l)
             l = l - 1
         return nums
 
