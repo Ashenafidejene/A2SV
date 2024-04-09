@@ -5,12 +5,11 @@ class Solution:
         if len(firstList) == 0 or len(secondList)==0 :
             return answer
         while f < len(firstList) and s < len(secondList):
-            mins = max(firstList[f][0],secondList[s][0])
-            maxd = min(firstList[f][1],secondList[s][1])
-            if maxd>=mins :
-                answer.append([mins,maxd])
-            
-            if maxd == secondList[s][1]:
+            start = max(firstList[f][0],secondList[s][0])
+            end = min(firstList[f][1],secondList[s][1])
+            if end >=start :
+                answer.append([start,end ])
+            if end  == secondList[s][1]:
                 s+=1
             else:
                 f+=1
