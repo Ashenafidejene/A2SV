@@ -14,14 +14,8 @@ class Solution:
                 merged_array.append(right_half[right])
                 right += 1
         
-        while left < len(left_half):
-            merged_array.append(left_half[left])
-            left += 1
-        
-        while right < len(right_half):
-            merged_array.append(right_half[right])
-            right += 1
-        
+        merged_array.extend(left_half[left:])
+        merged_array.extend(right_half[right:])
         return merged_array
 
     def mergeSort(self, left: int, right: int, arr: List[int]) -> List[int]:
