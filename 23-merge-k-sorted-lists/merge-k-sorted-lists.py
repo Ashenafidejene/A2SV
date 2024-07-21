@@ -5,34 +5,21 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        # Merges two sorted linked lists
-        def merge(list1, list2):
-            dummy = ListNode()
-            tail = dummy
-            while list1 is not None and list2 is not None:
-                if list1.val < list2.val:
-                    tail.next = list1
-                    list1 = list1.next
-                else:
-                    tail.next = list2
-                    list2 = list2.next
-                tail = tail.next
-            if list1 is not None:
-                tail.next = list1
-            else:
-                tail.next = list2
-            return dummy.next
+        min_heap = []
         
-        # Recursive merge sort for the list of linked lists
-        def mergeSort(arr, left, right):
-            if left == right:
-                return arr[left]
-            mid = left + (right - left) // 2
-            left_half = mergeSort(arr, left, mid)
-            right_half = mergeSort(arr, mid + 1, right)
-            return merge(left_half, right_half)
+        # Initialize the heap with the head of each list
+        for index, list_node in enumerate(lists):
+            if list_node is not None:
+                heapq.heappush(min_heap, (list_node.val, index, list_node))
         
-        if not lists:
-            return None
+        dummy = ListNode()
+        current = dummy
         
-        return mergeSort(lists, 0, len(lists) - 1)
+        while min_heap:
+            val, index, node = heapq.heappop(min_heap)
+            current.next = node
+            current = current.next
+            if node.next is not None:
+                heapq.heappush(min_heap, (node.next.val, index, node.next))
+        
+        return dummy.next
