@@ -7,17 +7,15 @@
 class Solution:
     def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
         ans = []
+        self.sums = 0 
         def dfs(node , strs):
             if not node : 
                 return 
             strs += str(node.val)
             if not node.right and not node.left:
-                ans.append(strs)
+                self.sums += int(strs,2)
                 return 
             dfs(node.left,strs)
             dfs(node.right,strs)
         dfs(root,'')
-        sums =  0 
-        for num  in ans:
-            sums += int(num,2)
-        return sums
+        return self.sums
