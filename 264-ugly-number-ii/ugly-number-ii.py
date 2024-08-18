@@ -17,7 +17,6 @@ class Solution:
             else:
                 p5+=1
                 m5 = answer[p5]*5
-    
         return answer[n-1]
 
         
