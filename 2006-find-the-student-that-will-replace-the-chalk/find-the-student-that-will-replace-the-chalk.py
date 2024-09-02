@@ -2,9 +2,7 @@ class Solution:
     def chalkReplacer(self, chalk: List[int], k: int) -> int:
         if len(chalk) == 1:
             return 0
-        sums = sum(chalk)
-        while k >= sums:
-            k-=sums
+        k = k % sum(chalk)
         
         i=0
         while chalk[i] <= k:
