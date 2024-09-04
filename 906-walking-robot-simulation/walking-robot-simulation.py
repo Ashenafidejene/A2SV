@@ -1,51 +1,47 @@
 class Solution:
     def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
-        ans = [0, 0]  # Robot's current position
-        dir = 0  # Current direction (0: north, 1: east, 2: south, 3: west)
-        priv = 0  # Previous direction to revert if hitting an obstacle
+        ans = [0, 0]  
+        dir = 0  
         
-        # Convert list of lists to a set of tuples for fast lookup
+        
         obs = set(map(tuple, obstacles))
     
         maxs = 0 
         for arrow in commands:
-            if arrow == -1:  # Turn right
+            if arrow == -1:  
                 priv = dir 
                 dir = (dir + 1) % 4
                 continue
-            if arrow == -2:  # Turn left
+            if arrow == -2:  
                 priv = dir 
                 dir = (dir - 1) % 4
                 continue
             
-            # Moving in the current direction
-            if dir == 0:  # North
+            if dir == 0:  
                 for _ in range(arrow):
                     ans[1] += 1
                     if tuple(ans) in obs:
                         ans[1] -= 1
                         break
-            elif dir == 1:  # East
+            elif dir == 1: 
                 for _ in range(arrow):
                     ans[0] += 1
                     if tuple(ans) in obs:
                         ans[0] -= 1
                         break
-            elif dir == 2:  # South
+            elif dir == 2:  
                 for _ in range(arrow):
                     ans[1] -= 1
                     if tuple(ans) in obs:
                         ans[1] += 1
-                        
                         break
-            else:  # West
+            else:  
                 for _ in range(arrow):
                     ans[0] -= 1
                     if tuple(ans) in obs:
                         ans[0] += 1
                         break
             
-            # Update the maximum distance squared
             maxs = max(maxs, (ans[0] * ans[0] + ans[1] * ans[1]))
         
         return maxs
