@@ -1,19 +1,29 @@
 class Solution:
     def numberOfSubarrays(self, nums: List[int], k: int) -> int:
-        def helper(nums, k):
-            if k < 0 : return 0 
-            res = 0
-            left , sum = 0 ,0 
-            for right in range(len(nums)):
-                if nums[right] % 2 == 1 :
-                    sum += 1
-                while sum > k:
-                    if nums[left] % 2 == 1:
-                       sum -= 1
-                    left += 1
-                res +=(right - left + 1)
-            return res 
-        return helper(nums, k) - helper(nums, k - 1)
-
-
-   
+        l = 0
+        m = -1
+        count_odds = 0
+        ans = 0
+        
+        for r in range(len(nums)):
+           
+            if nums[r] % 2:
+                count_odds += 1
+            
+            
+            while count_odds > k:
+                if nums[l] % 2:
+                    count_odds -= 1
+                l += 1
+            
+            
+            if count_odds == k:
+                if m < l:  
+                    m = l
+                    while nums[m] % 2 == 0:
+                        m += 1
+                
+               
+                ans += m - l + 1
+        
+        return ans
