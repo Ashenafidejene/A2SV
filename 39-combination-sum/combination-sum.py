@@ -1,21 +1,14 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        res =[]
-        candidates.sort()
-        def backTracking(comp,start):
-            if sum(comp) == target:
-                if comp.sort() in res :
-                    return 
-                res.append(comp.copy())
-                return 
-            if sum(comp) > target:
-                return 
-            for i in range(start, len(candidates)):
-                comp.append(candidates[i])
-                backTracking(comp, i)
-                comp.pop()
+        ans = []
+        def backtracking(comp,index):
+            if sum(comp) == target :
+                ans.append(comp[:])
+            if sum(comp) < target:
+                for i in range(index , len(candidates)):
+                    comp.append(candidates[i])
+                    backtracking(comp,i)
+                    comp.pop()
+        backtracking([],0)
+        return ans
 
-        backTracking([],0)
-        return res
-
-        
