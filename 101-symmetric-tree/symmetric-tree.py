@@ -7,14 +7,15 @@
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if not root:
-            return True
+           return False 
         
-        def checker(left: Optional[TreeNode], right: Optional[TreeNode]) -> bool:
-            if not left and not right:
+        def isSymmetricP(p,q):
+            if not (p or q):
                 return True
-            if not left or not right:
-                return False
-            return left.val == right.val and checker(left.left, right.right) and checker(left.right, right.left)
-        
-        return checker(root.left, root.right)
-        
+            if p is None or q is None :
+                return False 
+            if p.val == q.val :
+                return isSymmetricP(p.right,q.left) and isSymmetricP(p.left,q.right)
+            else:
+                return False 
+        return isSymmetricP(root.right,root.left)
