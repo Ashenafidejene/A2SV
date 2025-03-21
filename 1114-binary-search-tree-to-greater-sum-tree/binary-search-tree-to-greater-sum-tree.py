@@ -5,24 +5,14 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def bstToGst(self, root: TreeNode) -> TreeNode:
-        self.sums = 0 
-        def SumDfs(node):
-            if not node :
-                return 
-            self.sums+= node.val
-            SumDfs(node.left)
-            SumDfs(node.right)
-        ans = []
+    def bstToGst(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        self.Temp = 0 
         def dfs(node):
             if not node :
                 return 
-            dfs(node.left)
-            x = node.val 
-            node.val = self.sums
-            self.sums-=x 
             dfs(node.right)
-        SumDfs(root)
+            node.val = self.Temp + node.val
+            self.Temp = node.val
+            dfs(node.left)
         dfs(root)
         return root
-            
