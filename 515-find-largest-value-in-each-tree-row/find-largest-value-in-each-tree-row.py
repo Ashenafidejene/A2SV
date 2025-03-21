@@ -6,20 +6,24 @@
 #         self.right = right
 class Solution:
     def largestValues(self, root: Optional[TreeNode]) -> List[int]:
-        if not root:
+        if root is None:
             return []
+
+        result = []
         queue = deque([root])
-        ans = []
+
         while queue:
-            maxs = float("-inf")
-            for nodes in queue:
-                maxs = max(maxs,nodes.val)
-            ans.append(maxs)
-            length = len(queue)
-            for _ in range(length):
+            level_size = len(queue)
+            max_val = float('-inf')
+       
+            for _ in range(level_size):
                 node = queue.popleft()
-                if node.left :
+                max_val = max(node.val , max_val)
+                if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
-        return ans 
+
+            result.append(max_val)
+
+        return result
