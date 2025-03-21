@@ -5,37 +5,16 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def __init__(self):
-        self.nums = []
-
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        if root is None:
-            return -1
-        small = root.val
-        self.compareBuilder(root, small, small)
-        return max(self.nums, default=0)
-    
-    def compareBuilder(self, root: Optional[TreeNode], small: int, larger: int):
-        if root is None:
-            return
-        
-        if root.right is not None:
-            right = root.right
-            val = right.val
-            smaller = min(small, val)
-            largerer = max(larger, val)
-            difference = largerer - smaller
-            self.nums.append(difference)
-            self.compareBuilder(right, smaller, largerer)
-        
-        if root.left is not None:
-            left = root.left
-            val = left.val
-            smaller = min(small, val)
-            largerer = max(larger, val)
-            difference = largerer - smaller
-            self.nums.append(difference)
-            self.compareBuilder(left, smaller, largerer)
-
-
-        
+        self.maxs = 0
+        stack = []
+        def dfs(root):
+            if not root:
+                return 
+            stack.append(root.val)
+            self.maxs = max(self.maxs , (max(stack)-min(stack)))
+            dfs(root.left)
+            dfs(root.right)
+            stack.pop()
+        dfs(root)
+        return self.maxs
