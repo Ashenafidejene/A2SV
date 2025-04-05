@@ -1,16 +1,13 @@
 class Solution:
     def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        i=0
-        while i < n :
-            correctPosition = nums[i] - 1
-            if correctPosition != i and nums[correctPosition] != correctPosition + 1 :
-                nums[correctPosition] , nums[i] = nums[i],nums[correctPosition]
-            else:
-                i+=1
-        ans =[]
-        for ind in range(n):
-            if ind != nums[ind]-1:
-                ans.append(ind+1)
+        for i in range(len(nums)):
+            while i+1 != nums[i]:
+                temp = nums[i]-1
+                if nums[i] == nums[temp]:
+                    break 
+                nums[i],nums[temp] = nums[temp],nums[i]
+        ans = []
+        for i in range(len(nums)):
+            if nums[i] != i+1:
+                ans.append(i+1)
         return ans
-            
